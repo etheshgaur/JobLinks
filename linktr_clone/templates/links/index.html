@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethesh - qaautomationtest</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Dark and neon background */
+            color: #fff;
+            font-family: 'Neon Lights', sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for better readability */
+            padding: 10px 20px; /* Adjust padding for smaller size */
+            z-index: 1000;
+        }
+
+        .header-container img.profile-img {
+            width: 100px; /* Reduced width */
+            height: 100px; /* Reduced height */
+            border-radius: 50%;
+            border: 2px solid #fff; /* Adjusted border size */
+            margin-right: 10px; /* Reduced margin to fit better */
+        }
+
+        .header-container h1 {
+            margin: 0;
+            font-size: 18px; /* Adjusted font size to fit better */
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7); /* Neon shadow effect */
+        }
+
+        .content {
+            margin-top: 100px; /* Adjusted margin for smaller header */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); /* Neon shadow effect */
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%; /* Ensure the list takes full width */
+            text-align: left; /* Align links to the left */
+        }
+
+        li {
+            padding: 10px;
+            position: relative; /* Ensure the options menu is positioned relative to the list item */
+            margin: 10px 0; /* Space between items */
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px; /* Adjust padding for space */
+            display: inline-block;
+            background: #333;
+            border-radius: 8px;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 255, 0, 0.7);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* Position relative to allow absolute positioning of more-options */
+        }
+
+        .more-options {
+            cursor: pointer;
+            font-size: 20px;
+            position: absolute;
+            top: 50%;
+            right: -20px;
+            transform: translateY(-50%); /* Center vertically */
+            z-index: 1;
+            color: #ff4081; /* Change this to the desired color for the dots */
+            background: #333; /* Ensure background is the same as the link */
+            padding: 0 5px; /* Add padding for clickable area */
+            border-radius: 50%; /* Make dots round */
+        }
+
+        .options-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #333;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .options-menu a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid #444;
+        }
+
+        .options-menu a:hover {
+            background: #555;
+        }
+
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 10px 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: #333;
+            text-shadow: 0 0 5px rgba(0, 255, 255, 0.7), 0 0 10px rgba(255, 0, 255, 0.7), 0 0 15px rgba(255, 255, 0, 0.7);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .footer a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+        }
+
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const moreOptionsButtons = document.querySelectorAll('.more-options');
+            moreOptionsButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.stopPropagation(); // Prevent the click event from triggering the link
+                    const menu = this.nextElementSibling;
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!event.target.classList.contains('more-options')) {
+                    document.querySelectorAll('.options-menu').forEach(menu => {
+                        menu.style.display = 'none';
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header-container">
+        <img src="{{ profile.image.url }}" alt="Profile Image" class="profile-img">
+        <h1>Ethesh - qaautomationtest</h1>
+    </div>
+    <div class="content">
+        <h2>All Links</h2>
+
+        <ul>
+            {% for link in links %}
+                <li>
+                    <a href="{% url 'link_click' link.id %}" class="link-item">{{ link.title }}</a>
+                    <span class="more-options">⋮</span>
+                    <div class="options-menu">
+                        <a href="https://api.whatsapp.com/send?text={{ link.url }}" target="_blank">Share on WhatsApp</a>
+                        <a href="mailto:?subject=Check%20this%20out&body={{ link.url }}">Share via Email</a>
+                        <a href="https://www.instagram.com/?url={{ link.url }}" target="_blank">Share on Instagram</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="footer">
+        <a href="https://www.linkedin.com/in/ethesh-gaur-1040ab39/" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/qa_automation_test/" target="_blank">Instagram</a>
+    </div>
+</body>
+</html>
